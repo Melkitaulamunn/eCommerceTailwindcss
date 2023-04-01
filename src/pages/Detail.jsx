@@ -2,7 +2,8 @@ import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {productsActiondetail} from "../redux/actions/products"
-import {CgMathPlus,CgMathMinus} from "react-icons/cg"
+import {CgMathPlus,CgMathMinus} from "react-icons/cg";
+import {productsCard} from "../redux/actions/card.js"
 
 const Detail = () => {
   const{id}=useParams();
@@ -13,9 +14,10 @@ const Detail = () => {
 
   useEffect(()=>{
     dispatch(productsActiondetail(id))
-
   },[dispatch])
+
   console.log("product",product)
+
   const increment=(stock)=>{
     if (count<= stock){
       setCount(count+1)
@@ -28,7 +30,12 @@ const Detail = () => {
       setCount(count-1)
     }
   }
+const addCard=()=>{
+  dispatch(productsCard(id,count))
+  dispatch({type:"DRAWER",payload:true})
+  
 
+}
   return (
     <div className='w-full flex justify-center items-center space-x-5'>
      <img className="w-1/3" src={product?.image} alt=""  />
@@ -36,14 +43,16 @@ const Detail = () => {
         <div className='font-bold text-xl'>{product?.title}</div>
         <div className='opacity-70'>{product?.description}</div>
         <div className='opacity-70'>Category:{product?.category}</div>
-        <div className='opacity_70'>Rate:{product?.rating.rate} - Stock: {product?.rating?.count}</div>
+        <div className='opacity_70'>Rate:{product?.rating?.rate} - Stock: {product?.rating?.count}</div>
         <div className='font-bold text-xl'>Fiyat:{product?.price}</div>
+
+
         <div className='flex items-center space-x-4'>
-          <CgMathPlus onClick={increment}className='cursor-pointer border rounded-full p-1' size={30}/>
+          <CgMathPlus onClick={()=>increment(product?.rating?.count)}className='cursor-pointer border rounded-full p-1' size={30}/>
           <span className='text-2xl'>{count}</span>
-          <CgMathMinus onClick={decrement}className='cursor-pointer border rounded-full p-1' size={30}/>
+          <CgMathMinus onClick={()=>decrement()}className='cursor-pointer border rounded-full p-1' size={30}/>
         </div>
-        <button className='p-3 w-full text-center rounded-lg text-white text-lg bg-indigo-600'>Sepete Ekle</button>
+        <button onClick={()=>addCard()}className='p-3 w-full text-center rounded-lg text-white text-lg bg-indigo-600'>Sepete Ekle</button>
      </div>
     </div>
   )
