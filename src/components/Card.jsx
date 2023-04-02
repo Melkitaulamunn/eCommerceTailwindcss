@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Card = () => {
   const dispatch=useDispatch()
-  const {cardItems}=useSelector(state=>state.cardItems)
+  const {cardItems}=useSelector(state=>state.card)
   console.log("cardItems",cardItems);
 
   return (
@@ -18,15 +18,19 @@ const Card = () => {
 
       {
         cardItems?.map((card,i)=>(
+          
+         
       <div className="h-28 items-center flex justify-between py-4 mt-5">
           <img className="h-24" src={card?.image} alt="" />
           <div className='w-30'>
-            <div className='font-bold text-sm'>{card?.title}{card?.qty}</div>
+            <div className='font-bold text-sm'>{card?.title}({card?.qty})</div>
             <div className='opacity-70 text-xs'>{card?.description} </div>
           </div>
           <div className='font-bold text-lg'>{card?.price}</div>
           <div className='bg-red-500 w-20 p-2 text-center text-whitw rounded-lg cursor-pointer'>sil</div>
+          
       </div>
+      
 
         ))
       }

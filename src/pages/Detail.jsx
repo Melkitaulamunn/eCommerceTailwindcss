@@ -32,6 +32,7 @@ const Detail = () => {
   }
 const addCard=()=>{
   dispatch(productsCard(id,count))
+
   dispatch({type:"DRAWER",payload:true})
   
 

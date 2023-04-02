@@ -15,7 +15,7 @@ const reducers=combineReducers({
     drawer:drawerReducer,
     products:productsReducer,
     product:productsDetailReducer,
-    cardItems:cardReducer
+    card:cardReducer
 
 
 })
